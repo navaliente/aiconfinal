@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aiccon Servicios Financieros</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Animate.css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            background-color: #f9fbfd;
+            overflow-x: hidden;
+        }
+        /* Header moderno con azul oscuro */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Centra verticalmente */
+            padding: 10px 5%;
+            background-color: #203157;
+            color: white;
+            border-bottom: 2px solid #0056b3;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-container img {
+            height: 240px; /* Doble de 120px */
+            width: 360px;  /* Doble de 180px */
+            object-fit: contain;
+            max-height: 120px;
+        }
+        /* Contenedor de texto e íconos: centrado */
+        .header .info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 5px;
+        }
+        .header .info .title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #00bcd4;
+            margin: 0;
+        }
+
+        .header {
+              padding: 8px 5%;   /* Reducido de 15px a 8px */
+              gap: 15px;         /* Compacto */
+             }
+        .contact-icons {
+            display: flex;
+            gap: 15px;
+            margin: 0;
+        }
+        .contact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #0056b3;
+            color: white;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            text-decoration: none !important;
+            box-shadow: none; /* Elimina cualquier sombra que simule una línea */
+        }
+        .contact-icon:hover {
+            background: #00162e;
+            transform: scale(1.1);
+        }
+        /* Hero Slider */
+        .hero-slider {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slide-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .slide-bg.active {
+            opacity: 1;
+        }
+        .overlay-gradient {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 86, 179, 0.8), rgba(0, 22, 46, 0.9));
+            z-index: 1;
+        }
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 20px;
+        }
+        .slide-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        .slide-subtitle {
+            font-size: 1.8em;
+            font-weight: 600;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+        }
+        /* Controles del carrusel */
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 3;
+        }
+        .slider-btn {
+            background: #0056b3;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .slider-btn:hover {
+            background: #00162e;
+            transform: scale(1.1);
+        }
+        .slider-dots {
+            display: flex;
+            gap: 10px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        /* Estilo de fondo común para todas las secciones */
+        .section-with-logo-bg {
+            position: relative;
+            padding: 100px 5%;
+            text-align: center;
+            background-image: url('./logo3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+        .section-with-logo-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 86, 179, 0.7), rgba(0, 22, 46, 0.85));
+            z-index: -1;
+        }
+        .section-with-logo-bg::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+        .section-with-logo-bg h2 {
+            font-size: 3em;
+            margin-bottom: 50px;
+            color: white;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+        }
+        /* Empleados Públicos */
+        .employee-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        .category-item {
+            background-color: transparent;
+            padding: 25px;
+            border-radius: 16px;
+            width: 320px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .category-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .category-item img {
+            height: 60px;
+            width: 60px;
+            object-fit: contain;
+        }
+        /* Crédito Digital */
+        .digital-steps {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 200px;
+            background-color: transparent;
+        }
+        .step-item img {
+            height: 70px;
+            margin-bottom: 15px;
+        }
+        .step-item p {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: white;
+        }
+        /* Tipos de Créditos */
+        .credit-options {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        .credit-box {
+            background-color: transparent;
+            padding: 40px;
+            border-radius: 16px;
+            width: 380px;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .credit-box h3 {
+            font-size: 2em;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .credit-box p {
+            font-size: 1.3em;
+            line-height: 1.6;
+            color: white;
+        }
+        /* Beneficios */
+        .benefits-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.benefits-section ul li {
+    font-size: 1.5em;
+    margin: 25px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    text-align: left;
+}
+
+.benefits-section ul li::before {
+    content: '✓';
+    color: #00bcd4;
+    font-weight: bold;
+    font-size: 1.4em;
+    min-width: 30px;        /* Ancho fijo para alinear todas las viñetas */
+    text-align: center;     /* Centra el ✓ dentro del espacio */
+    display: inline-block;
+    flex-shrink: 0;         /* Evita que se comprima */
+}
+        
+        /* Cuadro "NO COBRAMOS..." sin bordes punteados */
+        .animated-text-box {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 40px auto;
+            max-width: 800px;
+            font-size: 1.6em;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+        }
+        /* Nosotros */
+        .about-us-section p {
+            font-size: 1.5em;
+            max-width: 900px;
+            margin: 20px auto;
+            color: white;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+        }
+        .whatsapp-button {
+            background-color: transparent;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            border: 2px solid #25D366;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .whatsapp-button img {
+            height: 24px;
+        }
+        .whatsapp-button:hover {
+            background-color: rgba(37, 211, 102, 0.1);
+        }
+        /* Footer - Creador */
+        .footer-creator {
+            text-align: center;
+            padding: 40px 5%;
+            background-color: #00162e;
+            color: white;
+            font-size: 1.1em;
+        }
+        .footer-creator a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+        /* Botón flotante de WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        .whatsapp-float img {
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                justify-content: center;
+                text-align: center;
+            }
+            .header .info {
+                order: 2;
+            }
+            .header .contact-icons {
+                order: 3;
+                margin-top: 10px;
+            }
+            .slide-title { font-size: 2.5em; }
+            .slide-subtitle { font-size: 1.4em; }
+            .employee-categories,
+            .digital-steps,
+            .credit-options { flex-direction: column; align-items: center; }
+            .category-item,
+            .step-item,
+            .credit-box { width: 90%; }
+            .slider-controls { bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container animate__animated animate__fadeInLeft">
+            <img src="./logo aiccon.png" alt="Logo Aiccon">
+        </div>
+        <div class="info animate__animated animate__fadeInUp animate__delay-1s">
+            <span class="title">Servicios Financieros</span>
+            <div class="contact-icons">
+                <a href="https://wa.me/2233034533" target="_blank" class="contact-icon" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://instagram.com/aicoonservicios" target="_blank" class="contact-icon" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="mailto:contacto@aiccon.com.ar" target="_blank" class="contact-icon" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Resto del contenido (sin cambios) -->
+    <!-- Hero Slider -->
+    <section class="hero-slider">
+        <div class="slide-bg active" style="background-image: url('./imagen1.png');"></div>
+        <div class="slide-bg" style="background-image: url('./imagen2.png');"></div>
+        <div class="slide-bg" style="background-image: url('./imagen3.png');"></div>
+        <div class="overlay-gradient"></div>
+        <div class="slide-content">
+            <h1 class="slide-title animate__animated animate__fadeInUp">Precisás un crédito?</h1>
+            <p class="slide-subtitle animate__animated animate__fadeInUp animate__delay-1s">NOSOTROS TENEMOS LA SOLUCIÓN</p>
+        </div>
+        <div class="slider-controls">
+            <button class="slider-btn prev" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+            <div class="slider-dots" id="sliderDots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+            <button class="slider-btn next" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Empleados Públicos -->
+    <section class="public-employees-section section-with-logo-bg">
+        <h2 class="animate__animated animate__fadeIn">Préstamos exclusivos para empleados públicos</h2>
+        <h2 class="animate__animated animate__fadeIn animate__delay-0.3s">de la provincia de Buenos Aires</h2>
+        <div class="employee-categories">
+            <div class="category-item animate__animated animate__zoomIn animate__delay-0.6s">
+                <img src="./police_icon.png" alt="Policía" />
+                <div>
+                    <h3>Policía</h3>
+                    <ul><li>Policía Bonaerense</li><li>Caja de Policía</li></ul>
+                </div>
+            </div>
+            <div class="category-item animate__animated animate__zoomIn animate__delay-0.9s">
+                <img src="./hospital_icon.png" alt="Salud" />
+                <div>
+                    <h3>Salud</h3>
+                    <ul><li>Ministerio de Salud</li></ul>
+                </div>
+            </div>
+            <div class="category-item animate__animated animate__zoomIn animate__delay-1.2s">
+                <img src="./school_icon.png" alt="Educación" />
+                <div>
+                    <h3>Educación</h3>
+                    <ul><li>Docentes y Auxiliares</li><li>IPS</li></ul>
+                </div>
+            </div>
+            <div class="category-item animate__animated animate__zoomIn animate__delay-1.5s">
+                <img src="./banco.png" alt="Municipales" />
+                <div>
+                    <h3>Municipales</h3>
+                    <ul><li>Empleados Municipales</li></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crédito Digital -->
+    <section class="digital-credit-section section-with-logo-bg">
+        <h2 class="animate__animated animate__fadeIn">SACÁ TU CRÉDITO 100% DIGITAL</h2>
+        <div class="digital-steps mt-5">
+            <div class="step-item animate__animated animate__bounceIn animate__delay-0.5s">
+                <img src="./27.png" alt="Contactanos" />
+                <p>CONTACTANOS</p>
+            </div>
+            <div class="step-item animate__animated animate__bounceIn animate__delay-0.8s">
+                <img src="./28.png" alt="Envianos tu recibo" />
+                <p>ENVIANOS TU RECIBO</p>
+            </div>
+            <div class="step-item animate__animated animate__bounceIn animate__delay-1.1s">
+                <img src="./29.png" alt="Cobrá en el día" />
+                <p>COBRÁ EN EL DÍA</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tipos de Créditos -->
+    <section class="credit-types-section section-with-logo-bg">
+        <h2 class="animate__animated animate__fadeIn">TIPOS DE CRÉDITOS QUE OFRECEMOS</h2>
+        <div class="credit-options mt-5">
+            <div class="credit-box animate__animated animate__slideInLeft animate__delay-0.6s">
+                <h3>HABERES</h3>
+                <p>El crédito se descuenta directamente de tu recibo de sueldo.</p>
+            </div>
+            <div class="credit-box animate__animated animate__slideInRight animate__delay-0.9s">
+                <h3>CBU</h3>
+                <p>Las cuotas se debitan automáticamente de tu caja de ahorro.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beneficios -->
+    <section class="benefits-section section-with-logo-bg">
+        <div class="container">
+            <hr class="bg-primary" style="border: 2px solid #0056b3; margin: 40px 0;">
+            <ul class="list-unstyled">
+                <li class="animate__animated animate__fadeInLeft animate__delay-0.4s">Convenios directos</li>
+                <li class="animate__animated animate__fadeInLeft animate__delay-0.7s">Seguro y confiable</li>
+                <li class="animate__animated animate__fadeInLeft animate__delay-1.0s">Si estás en Veraz igual podés calificar</li>
+            </ul>
+            <div class="animated-text-box animate__animated animate__rubberBand animate__delay-1.3s">
+                NO COBRAMOS NI POR EL ASESORAMIENTO NI POR LA GESTIÓN
+            </div>
+        </div>
+    </section>
+
+    <!-- Nosotros -->
+    <section class="about-us-section section-with-logo-bg">
+        <h2 class="animate__animated animate__fadeIn">NOSOTROS</h2>
+        <p class="animate__animated animate__fadeIn animate__delay-0.3s">
+            Somos intermediarios financieros. Contamos con convenios directos con la mayoría de las mutuales, gremios, cooperativas y financieras para que puedas gestionar tu crédito 100% digital sin moverte de tu casa. 
+            Nuestra trayectoria de más de 10 años en el rubro nos avala.
+        </p>
+        <a href="https://wa.me/2233034533" class="whatsapp-button animate__animated animate__pulse animate__infinite">
+            <img src="./whatsapp_icon.png" alt="WhatsApp"> CONTACTANOS
+        </a>
+    </section>
+
+    <!-- Footer - Creador -->
+    <footer class="footer-creator">
+        <p><strong>Sitio desarrollado por:</strong></p>
+        <p>DAMIAN | Especialista en Créditos Digitales</p>
+        <p style="margin-top: 10px; font-size: 0.9em; color: #aaa;">
+            © 2025 Aiccon Servicios Financieros. Todos los derechos reservados.
+        </p>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/2233034533" target="_blank">
+            <img src="./whatsapp_icon.png" alt="WhatsApp" />
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backgrounds = document.querySelectorAll('.slide-bg');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            backgrounds[currentIndex].classList.remove('active');
+            dots[currentIndex].classList.remove('active');
+            currentIndex = index;
+            backgrounds[currentIndex].classList.add('active');
+            dots[currentIndex].classList.add('active');
+        }
+
+        prevBtn.addEventListener('click', () => {
+            showSlide((currentIndex - 1 + backgrounds.length) % backgrounds.length);
+        });
+        nextBtn.addEventListener('click', () => {
+            showSlide((currentIndex + 1) % backgrounds.length);
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                showSlide(parseInt(dot.dataset.slide));
+            });
+        });
+
+        setInterval(() => {
+            showSlide((currentIndex + 1) % backgrounds.length);
+        }, 5000);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__animated');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.category-item, .step-item, .credit-box, .benefits-section li, .animated-text-box').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
